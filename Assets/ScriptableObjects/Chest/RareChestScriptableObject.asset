@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a5e06549099064ab41e78f417186ad, type: 3}
+  m_Name: RareChestScriptableObject
+  m_EditorClassIdentifier: 
+  chestName: Gold
+  chestType: 2
+  chestProbability: 0.7
+  unlockTimeType: 2
+  unlockTime: 30
+  rewardsList:
+  - rewardName: Coins
+    rewardType: 1
+    rewardProbability: 1
+    minRewardAmount: 300
+    maxRewardAmount: 500
+    currencyScriptableObject: {fileID: 11400000, guid: f06df8d29f0d1f440a9dd34f7d071386, type: 2}
+    cardName: 
+  - rewardName: Gems
+    rewardType: 1
+    rewardProbability: 1
+    minRewardAmount: 20
+    maxRewardAmount: 40
+    currencyScriptableObject: {fileID: 11400000, guid: f0e8ae8bae907d9489ae84e340129de5, type: 2}
+    cardName: 
+  - rewardName: Goblin
+    rewardType: 2
+    rewardProbability: 0.5
+    minRewardAmount: 3
+    maxRewardAmount: 10
+    currencyScriptableObject: {fileID: 0}
+    cardName: Goblin
