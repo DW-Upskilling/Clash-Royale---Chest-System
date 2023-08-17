@@ -17,14 +17,18 @@ public class ChestScriptableObject : ScriptableObject
     public float ChestProbability { get { return chestProbability; } }
 
     [SerializeField]
-    TimeType unlockTimeType;
-    public TimeType UnlockTimeType { get { return unlockTimeType; } }
+    TimeType chestUnlockTimeType;
+    public TimeType ChestUnlockTimeType { get { return chestUnlockTimeType; } }
 
     [SerializeField]
-    float unlockTime;
-    public float UnlockTime { get { return unlockTime; } }
+    float chestUnlockTime;
+    public float ChestUnlockTime { get { return chestUnlockTime; } }
 
     [SerializeField]
     List<Reward> rewardsList;
     public List<Reward> RewardsList { get { return rewardsList; } }
+
+    [SerializeField]
+    ChestView chestViewPrefab;
+    public ChestView ChestViewPrefab { get { return chestViewPrefab; } }
 }
