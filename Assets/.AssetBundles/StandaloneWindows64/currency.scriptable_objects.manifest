@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 1262199472
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e2b34f0098402cafbbf7aaf04b3c25f6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 94ad62d688ec877c3da277c7d6dfa17a
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: 7eccacd548916ef4e9cf8f146ea6fcea, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/AssetBundles/ScriptableObjects/Currency/GemCurrencyScriptableObject.asset
+- Assets/AssetBundles/ScriptableObjects/Currency/CoinCurrencyScriptableObject.asset
+Dependencies: []

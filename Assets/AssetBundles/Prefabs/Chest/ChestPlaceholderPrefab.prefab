@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 24415241800005728}
   - component: {fileID: 24415241800005730}
   m_Layer: 0
-  m_Name: ChestPlaceholder
+  m_Name: ChestPlaceholderPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

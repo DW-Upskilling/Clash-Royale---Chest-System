@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 74611513
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f302f5d2166180339e9d2b22b5b7d540
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2546f663fbff0d72ff0d58ee18b97e9c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 52a5e06549099064ab41e78f417186ad, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 274a42dd114d3b248a025621cb5f7ac0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7eccacd548916ef4e9cf8f146ea6fcea, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Reward
+Assets:
+- Assets/AssetBundles/ScriptableObjects/Chest/CommonChestScriptableObject.asset
+Dependencies:
+- D:/REPOSITORY/OutScal/Full Stack Game Development/Unity Advanced/Clash Royale -
+  Chest System/Assets/.AssetBundles/StandaloneWindows64/chest.prefabs
+- D:/REPOSITORY/OutScal/Full Stack Game Development/Unity Advanced/Clash Royale -
+  Chest System/Assets/.AssetBundles/StandaloneWindows64/currency.scriptable_objects
