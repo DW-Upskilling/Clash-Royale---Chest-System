@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 4243237168
+CRC: 2116230851
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: baa97e0130f504c3df8c2970848f93cb
+    Hash: bfca3e8c4ef141cdc427d3e87affd21d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 86155da4934e14316fa074fecd08324d
+    Hash: a5d51c1ec79d20a92e17e72a3ec59b2d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -19,6 +19,10 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 274a42dd114d3b248a025621cb5f7ac0, type: 3}
 - Class: 115
@@ -30,4 +34,6 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/AssetBundles/Prefabs/Chest/ChestPlaceholderPrefab.prefab
-Dependencies: []
+Dependencies:
+- D:/REPOSITORY/OutScal/Full Stack Game Development/Unity Advanced/Clash Royale -
+  Chest System/Assets/.AssetBundles/StandaloneWindows64/chest.animations

@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 3089113812
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 95945136d10f953cfab7cd83ca235b56
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1550525e6bdc288fe1d035446ab18f50
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 869c196acead9c34d851ae7836d3eca7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 392ef9d34c685e54dafc4d4eaf7d52b6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b47266b490eca9047a55529a279fd206, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8b3ade5ea334ada4692067447136c066, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/AssetBundles/Animations/Chest/ChestUnlocked.anim
+- Assets/AssetBundles/Animations/Chest/ChestPlaceholderPrefab.controller
+- Assets/AssetBundles/Animations/Chest/ChestCollected.anim
+- Assets/AssetBundles/Animations/Chest/ChestLocked.anim
+- Assets/AssetBundles/Animations/Chest/ChestUnlocking.anim
+Dependencies: []

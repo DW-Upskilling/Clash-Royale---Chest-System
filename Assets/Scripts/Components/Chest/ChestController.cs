@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Assets.Scripts.Components.Chest;
+using Assets.Scripts.ScriptableObjects;
+
 public class ChestController
 {
     ChestModel chestModel;
@@ -17,3 +20,4 @@ public class ChestController
         chestView = GameObject.Instantiate<ChestView>(chestScriptableObject.ChestViewPrefab, Vector3.zero, Quaternion.identity);
     }
 }
+

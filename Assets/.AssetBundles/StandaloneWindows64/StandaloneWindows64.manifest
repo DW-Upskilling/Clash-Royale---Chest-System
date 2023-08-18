@@ -1,30 +1,11 @@
 ManifestFileVersion: 0
-CRC: 2896419092
+CRC: 15249623
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: common.chest_scriptable_object
-      Dependencies:
-        Dependency_0: currency.scriptable_objects
-        Dependency_1: chest.prefabs
-    Info_1:
-      Name: epic.chest_scriptable_object
-      Dependencies:
-        Dependency_0: currency.scriptable_objects
-        Dependency_1: chest.prefabs
-    Info_2:
-      Name: legendary.chest_scriptable_object
-      Dependencies:
-        Dependency_0: currency.scriptable_objects
-        Dependency_1: chest.prefabs
-    Info_3:
-      Name: rare.chest_scriptable_object
-      Dependencies:
-        Dependency_0: currency.scriptable_objects
-        Dependency_1: chest.prefabs
-    Info_4:
-      Name: currency.scriptable_objects
-      Dependencies: {}
-    Info_5:
       Name: chest.prefabs
+      Dependencies:
+        Dependency_0: chest.animations
+    Info_1:
+      Name: chest.animations
       Dependencies: {}

@@ -1,11 +1,16 @@
 ﻿using UnityEditor;
 
-[CustomEditor(typeof(CurrencyScriptableObject))]
-public class ChestScriptableObjectEditor : Editor
+using Assets.Scripts.ScriptableObjects;
+
+namespace Assets.Scripts.Editor.ScriptableObjects
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(CurrencyScriptableObject))]
+    public class ChestScriptableObjectEditor : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+        }
     }
 }
 

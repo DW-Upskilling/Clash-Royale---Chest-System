@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+using Assets.Scripts.ScriptableObjects;
+
 public class ChestModel
 {
     public string ChestName { get; private set; }
@@ -12,9 +14,9 @@ public class ChestModel
     public ChestModel(ChestScriptableObject chestScriptableObject)
     {
         ChestName = chestScriptableObject.ChestName;
-        
+
         ChestType = chestScriptableObject.ChestType;
-        
+
         ChestProbability = chestScriptableObject.ChestProbability;
 
         ChestUnlockTimeType = chestScriptableObject.ChestUnlockTimeType;

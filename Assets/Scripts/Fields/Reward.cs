@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
+using Assets.Scripts.ScriptableObjects;
+
 [Serializable]
 public class Reward
 {
@@ -32,3 +34,4 @@ public class Reward
     string cardName;
     public string CardName { get { return cardName; } }
 }
+
