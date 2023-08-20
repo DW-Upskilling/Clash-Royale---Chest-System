@@ -46,4 +46,4 @@ MonoBehaviour:
     maxRewardAmount: 10
     currencyScriptableObject: {fileID: 0}
     cardName: Barbarian
-  chestViewPrefab: {fileID: 24415241800005730, guid: 87b4d9e6e4f0e9e459858ca2da06640c, type: 3}
+  chestViewPrefab: {fileID: 2389508695245395398, guid: a635fe8ccd0518a47a8a3ebed06570a6, type: 3}

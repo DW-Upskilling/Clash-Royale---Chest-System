@@ -49,7 +49,7 @@ namespace Assets.Scripts.Handlers
             ChestScriptableObject chestScriptableObject = gameManager.GetChestScriptableObjectByType(randomChestType);
             
             chestSlot.IsOccupied = true;
-            chestSlot.ChestController = new ChestController(chestScriptableObject);
+            chestSlot.ChestController = new ChestController(chestScriptableObject, chestSlot);
         }
     }
 }

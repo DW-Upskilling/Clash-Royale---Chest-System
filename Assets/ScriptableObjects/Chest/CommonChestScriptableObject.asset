@@ -39,4 +39,4 @@ MonoBehaviour:
     maxRewardAmount: 2
     currencyScriptableObject: {fileID: 0}
     cardName: Goblin
-  chestViewPrefab: {fileID: 24415241800005730, guid: 87b4d9e6e4f0e9e459858ca2da06640c, type: 3}
+  chestViewPrefab: {fileID: 2389508695245395398, guid: 763a313952a76f549ba4f7c102468f07, type: 3}
