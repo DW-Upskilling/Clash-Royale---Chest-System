@@ -38,18 +38,16 @@ namespace Assets.Scripts.Handlers
         }
 
         void generateChestButtonAction() {
-            Slot chestSlot = gameManager.GetEmptySlot();
+            Slot chestSlot = sessionManager.GetEmptySlot();
             if (chestSlot == null)
-            {
-                Debug.Log("Currently no empty chest slot available");
                 return;
-            }
                 
-            ChestType randomChestType = (ChestType)Random.Range(1f, 4f);
-            ChestScriptableObject chestScriptableObject = gameManager.GetChestScriptableObjectByType(randomChestType);
-            
-            chestSlot.IsOccupied = true;
+            ChestScriptableObject chestScriptableObject = gameManager.GetChestScriptableObjectRandom();
+            if (chestScriptableObject == null)
+                return;
+
             chestSlot.ChestController = new ChestController(chestScriptableObject, chestSlot);
+            chestSlot.IsOccupied = true;
         }
     }
 }

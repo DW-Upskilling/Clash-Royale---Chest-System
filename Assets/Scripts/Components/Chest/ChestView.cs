@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using Assets.Scripts.Handlers;
+
 namespace Assets.Scripts.Components.Chest
 {
     [RequireComponent(typeof(Animator), typeof(Button))]
@@ -14,13 +16,14 @@ namespace Assets.Scripts.Components.Chest
 
         Animator animator;
         Button button;
+        
+        [SerializeField]
         TextMeshProUGUI textMeshProUGUI;
 
         private void Awake()
         {
             animator = gameObject.GetComponent<Animator>();
             button = gameObject.GetComponent<Button>();
-            textMeshProUGUI = button.GetComponentInChildren<TextMeshProUGUI>();
         }
 
         private void Update()
@@ -43,8 +46,10 @@ namespace Assets.Scripts.Components.Chest
 
         public ChestController GetChestController(GameObject gameObject)
         {
+            ChestView chestView = gameObject.GetComponent<ChestView>();
+
             // Return ChestController only if component of same gameObject requests
-            if(gameObject.GetComponent<ChestView>() != null)
+            if (chestView == this)
             {
                 return chestController;
             }
@@ -84,8 +89,10 @@ namespace Assets.Scripts.Components.Chest
                 int minutes = (totalSeconds % 3600) / 60; 
                 int seconds = totalSeconds % 60;
 
-                stringBuilder.Append($"{hours:D2}:{minutes:D2}:{seconds:D2}");
+                stringBuilder.Append($"{hours:D2}hr {minutes:D2}min {seconds:D2}sec");
+                stringBuilder.Append("\n");
 
+                stringBuilder.Append($"Unlock now with {chestController.GemsRequiredToCompleteUnlocking} Gems!");
                 stringBuilder.Append("\n");
             }
 

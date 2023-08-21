@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 using Assets.Scripts.ScriptableObjects;
+
 
 public class GameManager : Singleton<GameManager>
 {
@@ -21,7 +25,8 @@ public class GameManager : Singleton<GameManager>
     GridLayoutGroup chestSlotContainer;
     public GameObject ChestSlotContainer { get { return chestSlotContainer.gameObject; } }
 
-    public List<Slot> ChestSlots { get; private set; }
+    [SerializeField]
+    TextMeshProUGUI TimeText;
 
     protected override void Initialize()
     {
@@ -30,10 +35,34 @@ public class GameManager : Singleton<GameManager>
 
         if(chestSlotContainer == null)
             throw new MissingReferenceException("chestSlotContainer not provided");
+    }
 
-        ChestSlots = new List<Slot>();
-        for(int i = 0; i < totalChestSlots; i++)
-            ChestSlots.Add(new Slot());
+    private void Start()
+    {
+        ResetTimeTexts();
+    }
+
+    public ChestScriptableObject GetChestScriptableObjectRandom()
+    {
+        float totalProbability = chestScriptableObjectList.Aggregate(0f, (accumulator, next) => accumulator + next.ChestProbability);
+        
+        System.Random random = new System.Random();
+        float probability = (float)random.NextDouble() * totalProbability;
+        
+        float differnce = int.MaxValue;
+        int index = -1;
+
+        for(int i=0; i< chestScriptableObjectList.Count; i++)
+        {
+            ChestScriptableObject chestScriptableObject = chestScriptableObjectList[i];
+            float currentDiffernce = Math.Abs(chestScriptableObject.ChestProbability - probability);
+            if(differnce > currentDiffernce)
+            {
+                differnce = currentDiffernce;
+                index = i;
+            }
+        }
+        return chestScriptableObjectList[index];
     }
 
     public ChestScriptableObject GetChestScriptableObjectByType(ChestType chestType)
@@ -41,24 +70,24 @@ public class GameManager : Singleton<GameManager>
         return chestScriptableObjectList.Find(e => e.ChestType == chestType);
     }
 
-    public Slot GetEmptySlot()
+    public void AccelerateTime()
     {
-        return ChestSlots.Find(e => e.IsOccupied != true);
+        // 100x times is maximum speed of fast forwarding
+        Time.timeScale = Mathf.Min(100, Time.timeScale + 1);
+        ResetTimeTexts();
+    }
+    public void DecelerateTime()
+    {
+        // 1x times is minimum speed of fast forwarding
+        Time.timeScale = Mathf.Max(1, Time.timeScale - 1);
+        ResetTimeTexts();
     }
 
-    public bool GetUnlockingSlot()
+    void ResetTimeTexts()
     {
-        if(concurrentUnlockedChests > 0)
+        if (TimeText != null)
         {
-            concurrentUnlockedChests -= 1;
-            return true;
+            TimeText.text = Time.timeScale + "x";
         }
-
-        return false;
-    }
-
-    public void GiveUnlockingSlot()
-    {
-        concurrentUnlockedChests += 1;    
     }
 }

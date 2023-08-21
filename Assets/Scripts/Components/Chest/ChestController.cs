@@ -8,8 +8,10 @@ using Assets.Scripts.ScriptableObjects;
 public class ChestController
 {
     GameManager gameManager;
+    SessionManager sessionManager;
 
     Slot slot;
+    public Slot Slot {get{return slot;}}
 
     ChestModel chestModel;
     ChestView chestView;
@@ -24,6 +26,10 @@ public class ChestController
         gameManager = GameManager.Instance;
         if (gameManager == null)
             throw new MissingReferenceException("GameManager instance not found!");
+
+        sessionManager = SessionManager.Instance;
+        if (sessionManager == null)
+            throw new MissingReferenceException("SessionManager instance not found!");
 
         chestModel = new ChestModel(chestScriptableObject);
         chestView = GameObject.Instantiate<ChestView>(chestScriptableObject.ChestViewPrefab, Vector3.zero, Quaternion.identity);
@@ -82,11 +88,27 @@ public class ChestController
 
     public void triggerClick()
     {
-        if(chestModel.ChestState == ChestState.Locked && gameManager.GetUnlockingSlot())
+        if(chestModel.ChestState == ChestState.Locked && sessionManager.UseUnlockingSlot(slot))
         {
             SetChestState(ChestState.Unlocking);
+        } 
+        else if (chestModel.ChestState == ChestState.Unlocking)
+        {
+            if(sessionManager.UseCurrency(CurrencyType.Gem, GemsRequiredToCompleteUnlocking))
+            {
+                chestModel.ChestUnlockTimeLeft = 0;
+            }
+        }
+        else if (chestModel.ChestState == ChestState.Unlocked) {
+            SetChestState(ChestState.Collected);
         }
     }
+
+    public int GemsRequiredToCompleteUnlocking { get {
+            if(chestModel.ChestState == ChestState.Unlocking)
+            return Mathf.CeilToInt(ChestUnlockTimeLeft / 600);
+            return int.MaxValue;
+    } }
 
     public ChestModel GetChestModel(GameObject gameObject)
     {

@@ -1,17 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2116230851
+CRC: 928469910
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: bfca3e8c4ef141cdc427d3e87affd21d
+    Hash: b0f580f50436ff18ee123437169b421c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a5d51c1ec79d20a92e17e72a3ec59b2d
+    Hash: 1b352215391a291bb5ec4a4982ad4085
 HashAppended: 0
 ClassTypes:
 - Class: 1
-  Script: {instanceID: 0}
-- Class: 4
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
@@ -24,16 +22,73 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 274a42dd114d3b248a025621cb5f7ac0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 115
   Script: {instanceID: 0}
-- Class: 212
+- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.FaceInfo_Legacy
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.FontAssetCreationSettings
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.KerningTable
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_Character
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_FontFeatureTable
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_FontWeightPair
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_GlyphAdjustmentRecord
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_GlyphPairAdjustmentRecord
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_GlyphValueRecord
+- AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.VertexGradient
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.FaceInfo
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.Glyph
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.GlyphMetrics
+- AssemblyName: UnityEngine.TextCoreFontEngineModule
+  ClassName: UnityEngine.TextCore.GlyphRect
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.AnimationTriggers
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Button/ButtonClickedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ColorBlock
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Navigation
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.SpriteState
 Assets:
-- Assets/AssetBundles/Prefabs/Chest/ChestPlaceholderPrefab.prefab
+- Assets/AssetBundles/Prefabs/Chest/LegendaryChestPrefab.prefab
+- Assets/AssetBundles/Prefabs/Chest/RareChestPrefab.prefab
+- Assets/AssetBundles/Prefabs/Chest/EpicChestPrefab.prefab
+- Assets/AssetBundles/Prefabs/Chest/CommonChestPrefab.prefab
 Dependencies:
 - D:/REPOSITORY/OutScal/Full Stack Game Development/Unity Advanced/Clash Royale -
   Chest System/Assets/.AssetBundles/StandaloneWindows64/chest.animations
