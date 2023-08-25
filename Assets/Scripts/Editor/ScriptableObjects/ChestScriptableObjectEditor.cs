@@ -1,8 +1,8 @@
 ﻿using UnityEditor;
 
-using Assets.Scripts.ScriptableObjects;
+using DevelopersWork.ChestSystem.ScriptableObjects;
 
-namespace Assets.Scripts.Editor.ScriptableObjects
+namespace DevelopersWork.ChestSystem.Editor.ScriptableObjects
 {
     [CustomEditor(typeof(CurrencyScriptableObject))]
     public class ChestScriptableObjectEditor : UnityEditor.Editor

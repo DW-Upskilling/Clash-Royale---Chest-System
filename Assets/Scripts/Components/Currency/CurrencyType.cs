@@ -1,6 +1,9 @@
-public enum CurrencyType
+namespace DevelopersWork.ChestSystem.Components.Currency
 {
-    None, 
-    Coin,
-    Gem
+    public enum CurrencyType
+    {
+        None,
+        Coin,
+        Gem
+    }
 }

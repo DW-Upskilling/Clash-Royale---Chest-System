@@ -1,6 +1,9 @@
-public enum RewardType
+namespace DevelopersWork.ChestSystem.Components.Reward
 {
-    None,
-    Currency,
-    Card
+    public enum RewardType
+    {
+        None,
+        Currency,
+        Card
+    }
 }

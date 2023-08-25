@@ -1,8 +1,11 @@
-public enum ChestType 
+namespace DevelopersWork.ChestSystem.Components.Chest
 {
-    None, 
-    Common,
-    Rare,
-    Epic,
-    Legendary
+    public enum ChestType
+    {
+        None,
+        Common,
+        Rare,
+        Epic,
+        Legendary
+    }
 }

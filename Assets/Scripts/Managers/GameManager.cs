@@ -1,93 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-using Assets.Scripts.ScriptableObjects;
+using DevelopersWork.ChestSystem.GenericClasses;
+using DevelopersWork.ChestSystem.ScriptableObjects;
 
+using DevelopersWork.ChestSystem.Components.Chest;
+using DevelopersWork.ChestSystem.Components.DialogBox;
+using DevelopersWork.ChestSystem.Components.Slot;
 
-public class GameManager : Singleton<GameManager>
+namespace DevelopersWork.ChestSystem.Managers
 {
-    [SerializeField]
-    int totalChestSlots = 4;
-    public int TotalChestSlots { get { return totalChestSlots; } }
-
-    [SerializeField]
-    int concurrentUnlockedChests = 1;
-    public int ConcurrentUnlockedChests { get { return concurrentUnlockedChests; } }
-
-    [SerializeField]
-    List<ChestScriptableObject> chestScriptableObjectList;
-
-    [SerializeField]
-    GridLayoutGroup chestSlotContainer;
-    public GameObject ChestSlotContainer { get { return chestSlotContainer.gameObject; } }
-
-    [SerializeField]
-    TextMeshProUGUI TimeText;
-
-    protected override void Initialize()
+    public class GameManager : Singleton<GameManager>
     {
-        if (chestScriptableObjectList == null || chestScriptableObjectList.Count == 0)
-            throw new MissingReferenceException("chestScriptableObjectList not provided");
+        [SerializeField]
+        int totalSlots = 4;
+        public int TotalSlots { get { return totalSlots; } }
 
-        if(chestSlotContainer == null)
-            throw new MissingReferenceException("chestSlotContainer not provided");
-    }
+        [SerializeField]
+        int unlockingSlots = 1;
+        public int UnlockingSlots { get { return unlockingSlots; } }
 
-    private void Start()
-    {
-        ResetTimeTexts();
-    }
+        [SerializeField]
+        int queueSlots = 2;
+        public int QueueSlots { get { return queueSlots; } }
 
-    public ChestScriptableObject GetChestScriptableObjectRandom()
-    {
-        float totalProbability = chestScriptableObjectList.Aggregate(0f, (accumulator, next) => accumulator + next.ChestProbability);
-        
-        System.Random random = new System.Random();
-        float probability = (float)random.NextDouble() * totalProbability;
-        
-        float differnce = int.MaxValue;
-        int index = -1;
+        [SerializeField]
+        SlotView slotPrefab;
+        public SlotView SlotPrefab { get { return slotPrefab; } }
 
-        for(int i=0; i< chestScriptableObjectList.Count; i++)
+        [SerializeField]
+        GridLayoutGroup chestSlotContainer;
+        public GameObject ChestSlotContainer { get { return chestSlotContainer.gameObject; } }
+
+        [SerializeField]
+        TextMeshProUGUI TimeText;
+
+        protected override void Initialize()
         {
-            ChestScriptableObject chestScriptableObject = chestScriptableObjectList[i];
-            float currentDiffernce = Math.Abs(chestScriptableObject.ChestProbability - probability);
-            if(differnce > currentDiffernce)
-            {
-                differnce = currentDiffernce;
-                index = i;
-            }
+            if (chestSlotContainer == null)
+                throw new MissingReferenceException("chestSlotContainer not provided");
+
+            if (slotPrefab == null)
+                throw new MissingReferenceException("SlotPrefab not provided");
         }
-        return chestScriptableObjectList[index];
-    }
 
-    public ChestScriptableObject GetChestScriptableObjectByType(ChestType chestType)
-    {
-        return chestScriptableObjectList.Find(e => e.ChestType == chestType);
-    }
+        private void Start()
+        {
+            ResetTimeTexts();
+        }
 
-    public void AccelerateTime()
-    {
-        // 100x times is maximum speed of fast forwarding
-        Time.timeScale = Mathf.Min(100, Time.timeScale + 1);
-        ResetTimeTexts();
-    }
-    public void DecelerateTime()
-    {
-        // 1x times is minimum speed of fast forwarding
-        Time.timeScale = Mathf.Max(1, Time.timeScale - 1);
-        ResetTimeTexts();
-    }
-
-    void ResetTimeTexts()
-    {
-        if (TimeText != null)
+        void ResetTimeTexts()
         {
             TimeText.text = Time.timeScale + "x";
+        }
+
+        // Below methods used during development to simulate faster results
+        public void AccelerateTime()
+        {
+            // 100x times is maximum speed of fast forwarding
+            Time.timeScale = Mathf.Min(100, Time.timeScale + 1);
+            ResetTimeTexts();
+        }
+        public void DecelerateTime()
+        {
+            // 1x times is minimum speed of fast forwarding
+            Time.timeScale = Mathf.Max(1, Time.timeScale - 1);
+            ResetTimeTexts();
         }
     }
 }

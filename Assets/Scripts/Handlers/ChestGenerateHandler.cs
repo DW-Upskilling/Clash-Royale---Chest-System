@@ -1,28 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-using Assets.Scripts.ScriptableObjects;
+using DevelopersWork.ChestSystem.Managers;
+using DevelopersWork.ChestSystem.ScriptableObjects;
 
-namespace Assets.Scripts.Handlers
+using DevelopersWork.ChestSystem.Components.Chest;
+using DevelopersWork.ChestSystem.Components.Slot;
+using DevelopersWork.ChestSystem.Components.DialogBox;
+
+namespace DevelopersWork.ChestSystem.Handlers
 {
     [RequireComponent(typeof(Button))]
     public class ChestGenerateHandler : MonoBehaviour
-    {
-
-        GameManager gameManager;
-        SessionManager sessionManager;
+    {      
+        ChestService chestService;
         
         Button generateChestButton;
 
         private void Awake()
         {
-            gameManager = GameManager.Instance;
-            if (gameManager == null)
-                throw new MissingReferenceException("GameManager instance not found!");
-
-            sessionManager = SessionManager.Instance;
-            if (sessionManager == null)
-                throw new MissingReferenceException("SessionManager instance not found!");
+            chestService = ChestService.Instance;
+            if (chestService == null)
+                throw new MissingReferenceException("ChestService instance not found!");
 
             generateChestButton = gameObject.GetComponent<Button>();
         }
@@ -38,16 +37,7 @@ namespace Assets.Scripts.Handlers
         }
 
         void generateChestButtonAction() {
-            Slot chestSlot = sessionManager.GetEmptySlot();
-            if (chestSlot == null)
-                return;
-                
-            ChestScriptableObject chestScriptableObject = gameManager.GetChestScriptableObjectRandom();
-            if (chestScriptableObject == null)
-                return;
-
-            chestSlot.ChestController = new ChestController(chestScriptableObject, chestSlot);
-            chestSlot.IsOccupied = true;
+            chestService.CreateChest();
         }
     }
 }

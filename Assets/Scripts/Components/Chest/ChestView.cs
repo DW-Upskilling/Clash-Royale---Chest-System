@@ -5,9 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-using Assets.Scripts.Handlers;
-
-namespace Assets.Scripts.Components.Chest
+namespace DevelopersWork.ChestSystem.Components.Chest
 {
     [RequireComponent(typeof(Animator), typeof(Button))]
     public class ChestView : MonoBehaviour
@@ -26,10 +24,10 @@ namespace Assets.Scripts.Components.Chest
             button = gameObject.GetComponent<Button>();
         }
 
-        private void Update()
+        private void Start()
         {
-            if(chestController != null)
-                chestController.Update();
+            if (chestController != null)
+                chestController.Start();
         }
 
         private void OnDestroy()
@@ -41,18 +39,13 @@ namespace Assets.Scripts.Components.Chest
         public void SetChestController(ChestController _chestController)
         {
             chestController = _chestController;
-            button.onClick.AddListener(chestController.triggerClick);
+            button.onClick.AddListener(chestController.Trigger);
         }
 
         public ChestController GetChestController(GameObject gameObject)
         {
-            ChestView chestView = gameObject.GetComponent<ChestView>();
-
-            // Return ChestController only if component of same gameObject requests
-            if (chestView == this)
-            {
+            if(this.gameObject == gameObject)
                 return chestController;
-            }
 
             return null;
         }
@@ -92,7 +85,7 @@ namespace Assets.Scripts.Components.Chest
                 stringBuilder.Append($"{hours:D2}hr {minutes:D2}min {seconds:D2}sec");
                 stringBuilder.Append("\n");
 
-                stringBuilder.Append($"Unlock now with {chestController.GemsRequiredToCompleteUnlocking} Gems!");
+                stringBuilder.Append($"Unlock now with {chestController.RequiredGemsToUnlockInstant} Gems!");
                 stringBuilder.Append("\n");
             }
 

@@ -3,7 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-namespace Assets.Scripts.Editor.ScriptableObjects
+namespace DevelopersWork.ChestSystem.Editor
 {
     public class CreateAssetBundle : UnityEditor.Editor
     {

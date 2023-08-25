@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Assets.Scripts.ScriptableObjects
+using DevelopersWork.ChestSystem.Components.Currency;
+
+namespace DevelopersWork.ChestSystem.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "CurrencyScriptableObject", menuName = "Scriptable Object/Currency")]
+    [CreateAssetMenu(fileName = "CurrencyScriptableObject", menuName = "Scriptable Object/Currency/New")]
     public class CurrencyScriptableObject : ScriptableObject
     {
         [SerializeField]
@@ -12,5 +15,13 @@ namespace Assets.Scripts.ScriptableObjects
         [SerializeField]
         CurrencyType currencyType;
         public CurrencyType CurrencyType { get { return currencyType; } }
+
+        [SerializeField]
+        CurrencyView currencyPrefab;
+        public CurrencyView CurrencyPrefab { get { return currencyPrefab; } }
+
+        [SerializeField]
+        Sprite sourceImage;
+        public Sprite SourceImage { get { return sourceImage; } }
     }
 }

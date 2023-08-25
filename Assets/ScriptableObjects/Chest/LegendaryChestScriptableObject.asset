@@ -17,33 +17,5 @@ MonoBehaviour:
   chestProbability: 0.05
   chestUnlockTimeType: 3
   chestUnlockTime: 3
-  rewardsList:
-  - rewardName: Coins
-    rewardType: 1
-    rewardProbability: 1
-    minRewardAmount: 1000
-    maxRewardAmount: 1200
-    currencyScriptableObject: {fileID: 11400000, guid: f06df8d29f0d1f440a9dd34f7d071386, type: 2}
-    cardName: 
-  - rewardName: Gems
-    rewardType: 1
-    rewardProbability: 1
-    minRewardAmount: 80
-    maxRewardAmount: 100
-    currencyScriptableObject: {fileID: 11400000, guid: f0e8ae8bae907d9489ae84e340129de5, type: 2}
-    cardName: 
-  - rewardName: Goblin Card
-    rewardType: 2
-    rewardProbability: 1
-    minRewardAmount: 3
-    maxRewardAmount: 10
-    currencyScriptableObject: {fileID: 0}
-    cardName: Goblin
-  - rewardName: Barbarian Card
-    rewardType: 2
-    rewardProbability: 0.8
-    minRewardAmount: 1
-    maxRewardAmount: 10
-    currencyScriptableObject: {fileID: 0}
-    cardName: Barbarian
+  rewardScriptableObjectList: {fileID: 11400000, guid: e7e20fe3d4fc9a642a05ca418ed1faf9, type: 2}
   chestViewPrefab: {fileID: 2389508695245395398, guid: a635fe8ccd0518a47a8a3ebed06570a6, type: 3}

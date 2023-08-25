@@ -1,38 +1,46 @@
 using System;
 using System.Collections.Generic;
 
-using Assets.Scripts.ScriptableObjects;
+using DevelopersWork.ChestSystem.ScriptableObjects;
+using DevelopersWork.ChestSystem.Components.Slot;
 
-public class ChestModel
+namespace DevelopersWork.ChestSystem.Components.Chest
 {
-    public string ChestName { get; private set; }
-    public ChestType ChestType { get; private set; }
-    public float ChestProbability { get; private set; }
-    public TimeType ChestUnlockTimeType { get; private set; }
-    public float ChestUnlockTime { get; private set; }
-    public List<Reward> RewardsList { get; private set; }
-
-    public ChestState ChestState { get; set; }
-    public TimeType ChestUnlockTimeLeftType { get; set; }
-    public float ChestUnlockTimeLeft { get; set; }
-    public DateTime lastStateModifiedTimestamp { get; set; }
-
-    public ChestModel(ChestScriptableObject chestScriptableObject)
+    public class ChestModel
     {
-        ChestName = chestScriptableObject.ChestName;
+        public string ChestName { get; private set; }
+        public ChestType ChestType { get; private set; }
+        public float ChestProbability { get; private set; }
+        public TimeType ChestUnlockTimeType { get; private set; }
+        public float ChestUnlockTime { get; private set; }
+        public RewardScriptableObjectList RewardScriptableObjectList { get; private set; }
 
-        ChestType = chestScriptableObject.ChestType;
+        public SlotController SlotController { get; set; }
+        public bool IsQueued { get; set; }
+        public ChestState ChestState { get; set; }
+        public TimeType ChestUnlockTimeLeftType { get; set; }
+        public float ChestUnlockTimeLeft { get; set; }
+        public DateTime lastStateModifiedTimestamp { get; set; }
 
-        ChestProbability = chestScriptableObject.ChestProbability;
+        public ChestModel(ChestScriptableObject chestScriptableObject)
+        {
+            ChestName = chestScriptableObject.ChestName;
 
-        ChestUnlockTimeType = chestScriptableObject.ChestUnlockTimeType;
-        ChestUnlockTime = chestScriptableObject.ChestUnlockTime;
+            ChestType = chestScriptableObject.ChestType;
 
-        RewardsList = chestScriptableObject.RewardsList;
+            ChestProbability = chestScriptableObject.ChestProbability;
 
-        ChestUnlockTimeLeftType = chestScriptableObject.ChestUnlockTimeType;
-        ChestUnlockTimeLeft = chestScriptableObject.ChestUnlockTime;
+            ChestUnlockTimeType = chestScriptableObject.ChestUnlockTimeType;
+            ChestUnlockTime = chestScriptableObject.ChestUnlockTime;
 
-        lastStateModifiedTimestamp = DateTime.Now;
+            RewardScriptableObjectList = chestScriptableObject.RewardScriptableObjectList;
+
+            ChestUnlockTimeLeftType = chestScriptableObject.ChestUnlockTimeType;
+            ChestUnlockTimeLeft = chestScriptableObject.ChestUnlockTime;
+
+            lastStateModifiedTimestamp = DateTime.Now;
+
+            IsQueued = false;
+        }
     }
 }

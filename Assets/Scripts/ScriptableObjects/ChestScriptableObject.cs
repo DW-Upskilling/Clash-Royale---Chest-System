@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using Assets.Scripts.Components.Chest;
+using DevelopersWork.ChestSystem.Components.Chest;
 
-namespace Assets.Scripts.ScriptableObjects
+namespace DevelopersWork.ChestSystem.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "ChestScriptableObject", menuName = "Scriptable Object/Chest")]
     public class ChestScriptableObject : ScriptableObject
@@ -29,8 +29,8 @@ namespace Assets.Scripts.ScriptableObjects
         public float ChestUnlockTime { get { return chestUnlockTime; } }
 
         [SerializeField]
-        List<Reward> rewardsList;
-        public List<Reward> RewardsList { get { return rewardsList; } }
+        RewardScriptableObjectList rewardScriptableObjectList;
+        public RewardScriptableObjectList RewardScriptableObjectList { get { return rewardScriptableObjectList; } }
 
         [SerializeField]
         ChestView chestViewPrefab;

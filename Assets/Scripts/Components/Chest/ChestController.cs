@@ -2,123 +2,182 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Assets.Scripts.Components.Chest;
-using Assets.Scripts.ScriptableObjects;
+using DevelopersWork.ChestSystem.Managers;
+using DevelopersWork.ChestSystem.ScriptableObjects;
 
-public class ChestController
+using DevelopersWork.ChestSystem.Components.Currency;
+using DevelopersWork.ChestSystem.Components.Slot;
+using DevelopersWork.ChestSystem.Components.DialogBox;
+
+namespace DevelopersWork.ChestSystem.Components.Chest
 {
-    GameManager gameManager;
-    SessionManager sessionManager;
-
-    Slot slot;
-    public Slot Slot {get{return slot;}}
-
-    ChestModel chestModel;
-    ChestView chestView;
-
-    public ChestState ChestState { get { return chestModel.ChestState; } }
-    public string ChestName { get { return chestModel.ChestName; } }
-
-    public float ChestUnlockTimeLeft { get { return chestModel.ChestUnlockTimeLeft; } }
-
-    public ChestController(ChestScriptableObject chestScriptableObject, Slot _slot)
+    public class ChestController
     {
-        gameManager = GameManager.Instance;
-        if (gameManager == null)
-            throw new MissingReferenceException("GameManager instance not found!");
+        GameManager gameManager;
+        SessionManager sessionManager;
 
-        sessionManager = SessionManager.Instance;
-        if (sessionManager == null)
-            throw new MissingReferenceException("SessionManager instance not found!");
+        DialogBoxService dialogBoxService;
 
-        chestModel = new ChestModel(chestScriptableObject);
-        chestView = GameObject.Instantiate<ChestView>(chestScriptableObject.ChestViewPrefab, Vector3.zero, Quaternion.identity);
-        chestView.SetChestController(this);
+        CurrencyService currencyService;
 
-        chestView.gameObject.transform.SetParent(gameManager.ChestSlotContainer.transform);
+        ChestModel chestModel;
+        ChestView chestView;
 
-        slot = _slot;
+        public ChestState ChestState { get { return chestModel.ChestState; } }
+        public string ChestName { get { return chestModel.ChestName; } }
+        public SlotController SlotController { get { return chestModel.SlotController; } }
+        public RewardScriptableObjectList RewardScriptableObjectList { get { return chestModel.RewardScriptableObjectList;  } }
 
-        SetChestState(ChestState.Locked);
-        ConvertTimeLeftToSeconds();
-    }
+        public float ChestUnlockTimeLeft { get { return chestModel.ChestUnlockTimeLeft; } }
 
-    public void Update()
-    {
-    }
-
-    public void OnDestroy()
-    {
-
-       slot.IsOccupied = false;
-        
-    }
-
-    public void SetChestState(ChestState nextChestState)
-    {
-        chestModel.ChestState = nextChestState;
-        chestModel.lastStateModifiedTimestamp = DateTime.Now;
-        
-        chestView.UpdateChestState();
-    }
-
-    void ConvertTimeLeftToSeconds()
-    {
-        switch (chestModel.ChestUnlockTimeLeftType)
+        public ChestController(ChestScriptableObject chestScriptableObject, SlotController slotController)
         {
-            case TimeType.Days:
-                chestModel.ChestUnlockTimeLeftType = TimeType.Hours;
-                chestModel.ChestUnlockTimeLeft = chestModel.ChestUnlockTimeLeft * 24;
-                ConvertTimeLeftToSeconds();
-                break;
-            case TimeType.Hours:
-                chestModel.ChestUnlockTimeLeftType = TimeType.Minutes;
-                chestModel.ChestUnlockTimeLeft = chestModel.ChestUnlockTimeLeft * 60;
-                ConvertTimeLeftToSeconds();
-                break;
-            case TimeType.Minutes:
-                chestModel.ChestUnlockTimeLeftType = TimeType.Seconds;
-                chestModel.ChestUnlockTimeLeft = chestModel.ChestUnlockTimeLeft * 60;
-                ConvertTimeLeftToSeconds();
-                break;
-            case TimeType.Seconds:
-                break;
-        }
-    }    
+            gameManager = GameManager.Instance;
+            if (gameManager == null)
+                throw new MissingReferenceException("GameManager instance not found!");
 
-    public void triggerClick()
-    {
-        if(chestModel.ChestState == ChestState.Locked && sessionManager.UseUnlockingSlot(slot))
-        {
-            SetChestState(ChestState.Unlocking);
-        } 
-        else if (chestModel.ChestState == ChestState.Unlocking)
-        {
-            if(sessionManager.UseCurrency(CurrencyType.Gem, GemsRequiredToCompleteUnlocking))
+            sessionManager = SessionManager.Instance;
+            if (sessionManager == null)
+                throw new MissingReferenceException("SessionManager instance not found!");
+
+            chestModel = new ChestModel(chestScriptableObject);
+            chestModel.SlotController = slotController;
+
+            chestView = GameObject.Instantiate<ChestView>(chestScriptableObject.ChestViewPrefab, Vector3.zero, Quaternion.identity);
+            chestView.transform.SetParent(gameManager.ChestSlotContainer.transform);
+            chestView.transform.SetSiblingIndex(slotController.SequenceNumber);
+
+            chestView.SetChestController(this);
+
+            if (!slotController.UseSlot(this))
             {
-                chestModel.ChestUnlockTimeLeft = 0;
+                GameObject.Destroy(chestView.gameObject);
+            }
+
+            SetChestState(ChestState.Locked);
+            ConvertTimeLeftToSeconds();
+        }
+        public void Start()
+        {
+            dialogBoxService = DialogBoxService.Instance;
+            if (dialogBoxService == null)
+                throw new MissingReferenceException("DialogBoxService instance not found!");
+
+            currencyService = CurrencyService.Instance;
+            if (currencyService == null)
+                throw new MissingReferenceException("CurrencyService instance not found!");
+        }
+
+        public void OnDestroy()
+        {
+            chestModel.SlotController.ReleaseSlot(this);
+        }
+
+        public void SetChestState(ChestState nextChestState)
+        {
+            chestModel.ChestState = nextChestState;
+            chestModel.lastStateModifiedTimestamp = DateTime.Now;
+
+            chestView.UpdateChestState();
+        }
+
+        void ConvertTimeLeftToSeconds()
+        {
+            switch (chestModel.ChestUnlockTimeLeftType)
+            {
+                case TimeType.Days:
+                    chestModel.ChestUnlockTimeLeftType = TimeType.Hours;
+                    chestModel.ChestUnlockTimeLeft = chestModel.ChestUnlockTimeLeft * 24;
+                    ConvertTimeLeftToSeconds();
+                    break;
+                case TimeType.Hours:
+                    chestModel.ChestUnlockTimeLeftType = TimeType.Minutes;
+                    chestModel.ChestUnlockTimeLeft = chestModel.ChestUnlockTimeLeft * 60;
+                    ConvertTimeLeftToSeconds();
+                    break;
+                case TimeType.Minutes:
+                    chestModel.ChestUnlockTimeLeftType = TimeType.Seconds;
+                    chestModel.ChestUnlockTimeLeft = chestModel.ChestUnlockTimeLeft * 60;
+                    ConvertTimeLeftToSeconds();
+                    break;
+                case TimeType.Seconds:
+                    break;
             }
         }
-        else if (chestModel.ChestState == ChestState.Unlocked) {
-            SetChestState(ChestState.Collected);
-        }
-    }
 
-    public int GemsRequiredToCompleteUnlocking { get {
-            if(chestModel.ChestState == ChestState.Unlocking)
-            return Mathf.CeilToInt(ChestUnlockTimeLeft / 600);
-            return int.MaxValue;
-    } }
-
-    public ChestModel GetChestModel(GameObject gameObject)
-    {
-        // Return ChestModel only if component of same gameObject requests
-        if (gameObject.GetComponent<ChestView>() != null)
+        public void Trigger()
         {
-            return chestModel;
+            if (chestModel.ChestState == ChestState.Locked)
+            {
+                if (sessionManager.UseUnlockingSlot())
+                {
+                    DialogBoxController dialogBoxController = dialogBoxService.Action(
+                        "Unlocking Options",
+                        "1. Wait for "+chestModel.ChestUnlockTimeLeft+"seconds of time.\n2. Use "+ RequiredGemsToUnlockInstant + "Gems to instantly unlock."
+                    );
+                    dialogBoxController.AddButton("Regular Unlock", () => { 
+                        SetChestState(ChestState.Unlocking);
+                        dialogBoxController.CloseButtonAction();
+                    });
+                    if(RequiredGemsToUnlockInstant <= currencyService.GetCurrencyControllerByType(CurrencyType.Gem).Value)
+                        dialogBoxController.AddButton("Instant Unlock", () => {
+                            currencyService.GetCurrencyControllerByType(CurrencyType.Gem).Decrement(RequiredGemsToUnlockInstant);
+                            SetChestState(ChestState.Unlocked);
+                            dialogBoxController.CloseButtonAction();
+                        });
+
+                    dialogBoxController.Show();
+                }
+                else
+                {
+                    DialogBoxController dialogBoxController = dialogBoxService.Action(
+                        "No Available Unlocking Slots",
+                        "Currently, all slots are occupied. Please wait for existing chests to finish unlocking before starting new ones."
+                    );
+                    if(!chestModel.IsQueued && sessionManager.IsQueueingSlotsAvailable())
+                    dialogBoxController.AddButton("Add to Queue", () => {
+                        if (sessionManager.AddChestToUnlockingQueue(this))
+                        {
+                            chestModel.IsQueued = true;
+                        }
+                        dialogBoxController.CloseButtonAction();
+                    });
+                    dialogBoxController.AddButton("Close", () => {
+                        dialogBoxController.CloseButtonAction();
+                    });
+
+                    dialogBoxController.Show();
+                }
+            }
+            else if (chestModel.ChestState == ChestState.Unlocking)
+            {
+                
+            }
+            else if (chestModel.ChestState == ChestState.Unlocked)
+            {
+                SetChestState(ChestState.Collected);
+            }
         }
 
-        return null;
+        public void ReturnUnlockingSlot()
+        {
+            sessionManager.ReturnUnlockingSlot();
+        }
+
+        public int RequiredGemsToUnlockInstant
+        {
+            get
+            {
+                if (chestModel.ChestState == ChestState.Unlocking || chestModel.ChestState == ChestState.Locked)
+                    return Mathf.CeilToInt(ChestUnlockTimeLeft / 600);
+                return int.MaxValue;
+            }
+        }
+
+        public void DecrementTimeLeftToUnlock(float value)
+        {
+            chestModel.ChestUnlockTimeLeft -= value;
+        }
     }
 }
 

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currencyName: Coin
   currencyType: 1
+  currencyPrefab: {fileID: 7683907680444281048, guid: e95536d62a23ef849aaed8328b61dbe8, type: 3}
+  sourceImage: {fileID: 21300000, guid: 929ec3c696d00834ab5ca150a4870a29, type: 3}
